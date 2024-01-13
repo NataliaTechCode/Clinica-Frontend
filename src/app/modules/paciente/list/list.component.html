@@ -1,0 +1,62 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h2>Lista de Pacientes</h2>
+  <div>
+    <label for="filtroNombre">Filtrar por nombre:</label><span>&nbsp;</span>
+    <input type="text" id="filtroNombre" [(ngModel)]="filtroNombre" (input)="filtrarPorNombre()"> <span>&nbsp;</span> 
+    <button (click)="reiniciarFiltro()">Reiniciar Filtro</button>
+  </div>
+  <br>
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>CI</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Nacimiento</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let paciente of getCurrentPageItems(); let i = index">
+        <tr>
+          <td>{{ paciente.documento_identidad }}</td>
+          <td>{{ paciente.nombre }}</td>
+          <td>{{ paciente.apellido }}</td>
+          <td>{{ paciente.fecha_nacimiento }}</td>
+                    
+          <td>
+            <!-- <a [routerLink]="['/paciente/edit', paciente.id_paciente]" class="btn btn-primary">Detalles</a>
+            <a [routerLink]="['/paciente/delete', paciente.id_paciente]" class="btn btn-danger">Eliminar</a>
+             -->
+            <!-- <a [routerLink]="['../../histClinica/list', paciente.id_paciente]" class="btn btn-primary">Historial Clínico</a> -->
+
+            <button [routerLink]="['../../histClinica/list', paciente.id_paciente]"  type="button" class="btn btn-outline-dark custom-outline-dark">
+              <i class="bi bi-card-text"></i>
+            </button>
+
+            <button [routerLink]="['/paciente/edit', paciente.id_paciente]" type="button" class="btn btn-outline-info custom-outline-blue">
+              <i class="bi bi-info-lg"></i>
+            </button>
+            
+            <button [routerLink]="['/paciente/delete', paciente.id_paciente]" type="button" class="btn btn-outline-danger custom-outline-danger">
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+
+
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <button class="btn btn-secondary" [disabled]="currentPage === 1" (click)="prevPage()">Anterior</button>
+
+    <span class="mx-2">Página {{ currentPage }} de {{ totalPages }}</span>
+
+    <button class="btn btn-secondary" [disabled]="currentPage === totalPages" (click)="nextPage()">Siguiente</button>
+  </div>
+<br>
+  <button [routerLink]="['/paciente/create']" class="btn btn-success">Crear Nuevo Paciente</button>
+</div>

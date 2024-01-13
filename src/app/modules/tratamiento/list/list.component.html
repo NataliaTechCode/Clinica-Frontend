@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h2>Tratamientos</h2>
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Tipo</th>
+        <th>Cantidad de Sesiones</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let tratamiento of getCurrentPageItems(); let i = index">
+        <tr>
+          <td>{{ tratamiento.tipo }}</td>
+          <td>{{ tratamiento.cantidad_sesion }}</td>
+          <td>
+
+            <!-- <a [routerLink]="['/tratamiento/edit', tratamiento.id_tratamiento]" class="btn btn-primary">Detalles</a>
+            <a [routerLink]="['/tratamiento/delete']" class="btn btn-danger">Eliminar</a> -->
+            <button [routerLink]="['/tratamiento/edit', tratamiento.id_tratamiento]" type="button" class="btn btn-outline-info custom-outline-blue">
+              <i class="bi bi-info-lg"></i>
+            </button>
+            
+            <button [routerLink]="['/tratamiento/delete']" type="button" class="btn btn-outline-danger custom-outline-danger">
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+            
+
+
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <button class="btn btn-secondary" [disabled]="currentPage === 1" (click)="prevPage()">Anterior</button>
+    <span class="mx-2">Página {{ currentPage }} de {{ totalPages }}</span>
+    <button class="btn btn-secondary" [disabled]="currentPage === totalPages" (click)="nextPage()">Siguiente</button>
+  </div>
+
+  <div class="my-3">
+    <button [routerLink]="['/tratamiento/create']" class="btn btn-success">Crear Nuevo Tratamiento</button>
+  </div>
+</div>
+

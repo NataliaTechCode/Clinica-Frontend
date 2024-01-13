@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h2>Usuarios</h2>
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+
+          <th>Usuario</th>
+          <th>contraseña</th>
+
+          <th>Permisos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let usuario of getCurrentPageItems(); let i = index">
+          <tr>
+
+            <td>{{ usuario.usuario }}</td>
+            <td>{{ usuario.contrasena?.substring(0, 0) + '******' }}</td>
+            <td>{{ usuario.permisos_rol }}</td>
+            <td>
+              <!-- <a [routerLink]="['/usuario/edit', usuario.id_usuario]" class="btn btn-primary">Detalles</a>
+              <a [routerLink]="['/usuario/delete']" class="btn btn-danger">Eliminar</a>
+             -->
+
+             <button [routerLink]="['/usuario/edit', usuario.id_usuario]" type="button" class="btn btn-outline-info custom-outline-dark">
+              <i class="bi bi-info-lg"></i>
+            </button>
+            
+            <button [routerLink]="['/usuario/delete']" type="button" class="btn btn-outline-danger custom-outline-danger">
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+    <div class="text-center">
+      <button class="btn btn-secondary" [disabled]="currentPage === 1" (click)="prevPage()">Anterior</button>
+      <span class="mx-2">Página {{ currentPage }} de {{ totalPages }}</span>
+      <button class="btn btn-secondary" [disabled]="currentPage === totalPages" (click)="nextPage()">Siguiente</button>
+    </div>
+
+    <div class="my-3">
+      <button [routerLink]="['/usuario/create']" class="btn btn-success">Crear Nuevo Usuario</button>
+    </div>
+  </div>
+
